@@ -1,3 +1,5 @@
+require_relative '../lib/census/utils/api'
+
 require 'simplecov'
 SimpleCov.start
 

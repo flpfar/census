@@ -1,5 +1,4 @@
 require_relative '../../lib/census/models/name'
-require_relative '../../lib/census/utils/api'
 
 describe Name do
   describe '.general_ranking_by_locale' do
@@ -24,7 +23,7 @@ describe Name do
 
         allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=123456").and_return(faraday_response)
 
-        result = Name.general_ranking_by_locale(123_456)
+        result = Name.general_ranking_by_locale(123456)
 
         expect(result).to be_an_instance_of(Array)
         expect(result.size).to eq(0)
