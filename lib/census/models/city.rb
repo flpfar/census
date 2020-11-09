@@ -17,6 +17,8 @@ class City
   end
 
   def self.find_id_by_name(city_name)
-    all.find { |city| city.name == city_name }.id
+    city = all.find { |item| item.name == city_name }
+
+    return city.id if city
   end
 end

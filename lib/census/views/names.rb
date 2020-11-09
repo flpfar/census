@@ -11,6 +11,10 @@ class NamesView
       puts create_table(data: female, title: 'Ranking Feminino')
     end
 
+    def city_name_not_found
+      puts 'Cidade não encontrada.'
+    end
+
     private
 
     def create_table(data:, title:)
