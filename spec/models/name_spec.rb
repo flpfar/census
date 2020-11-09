@@ -31,4 +31,34 @@ describe Name do
       end
     end
   end
+
+  describe '.male_ranking_by_locale' do
+    it 'should return an array of names' do
+      json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
+      faraday_response = double('ranking', status: 200, body: json_content)
+
+      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35&sexo=M").and_return(faraday_response)
+
+      result = Name.male_ranking_by_locale(35)
+
+      expect(result).to be_an_instance_of(Array)
+      expect(result.size).to eq(4)
+      expect(result.first).to be_an_instance_of(Name)
+    end
+  end
+
+  describe '.female_ranking_by_locale' do
+    it 'should return an array of names' do
+      json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
+      faraday_response = double('ranking', status: 200, body: json_content)
+
+      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35&sexo=F").and_return(faraday_response)
+
+      result = Name.female_ranking_by_locale(35)
+
+      expect(result).to be_an_instance_of(Array)
+      expect(result.size).to eq(4)
+      expect(result.first).to be_an_instance_of(Name)
+    end
+  end
 end
