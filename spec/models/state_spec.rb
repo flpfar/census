@@ -1,5 +1,4 @@
 require_relative '../../lib/census/models/state'
-require_relative '../../lib/census/utils/api'
 
 describe State do
   describe '.all' do

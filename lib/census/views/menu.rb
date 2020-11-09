@@ -8,11 +8,13 @@ class MenuView
     private
 
     def menu
+      system 'clear'
       puts
       rows = []
       rows << [1, 'Ranking dos nomes mais comuns em um estado']
       rows << [2, 'Ranking dos nomes mais comuns em uma cidade']
-      rows << [3, 'Heyy']
+      rows << [3, 'Frequência do uso de um nome ao longo dos anos']
+      rows << [4, 'Sair']
       puts Terminal::Table.new title: 'MENU', rows: rows
       options_select
     end
@@ -23,17 +25,31 @@ class MenuView
       menu
     end
 
+    def valid_input?(input)
+      [1, 2, 3, 4].include? input
+    end
+
+    def handle_selected_option(option)
+      case option
+      when 1 then StatesController.index
+      when 2 then CitiesController.index
+      when 3 then puts 'Frequência'
+      when 4 then puts 'Saindo...'
+      end
+
+      continue unless option == 4
+    end
+
     def options_select
       print 'Selecione uma opção: '
       input = gets.chomp.to_i
 
-      case input
-      when 1 then StatesController.index
-      when 2 then CitiesController.index
-      when 3 then puts 'HEYYYY'
+      unless valid_input?(input)
+        puts 'Opção inválida!'
+        return options_select
       end
 
-      continue unless input == 3
+      handle_selected_option(input)
     end
   end
 end
