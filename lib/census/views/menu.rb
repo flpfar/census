@@ -11,7 +11,8 @@ class MenuView
       puts
       rows = []
       rows << [1, 'Ranking dos nomes mais comuns em um estado']
-      rows << [2, 'Hey']
+      rows << [2, 'Ranking dos nomes mais comuns em uma cidade']
+      rows << [3, 'Heyy']
       puts Terminal::Table.new title: 'MENU', rows: rows
       options_select
     end
@@ -27,11 +28,12 @@ class MenuView
       input = gets.chomp.to_i
 
       case input
-      when 1
-        StatesController.index
-        continue
-      when 2 then puts 'HEYYYY'
+      when 1 then StatesController.index
+      when 2 then CitiesController.index
+      when 3 then puts 'HEYYYY'
       end
+
+      continue unless input == 3
     end
   end
 end

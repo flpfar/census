@@ -2,7 +2,7 @@ require_relative '../models/name'
 
 class NamesView
   class << self
-    def rankings_by_state(general, male, female)
+    def rankings_by_locale(general, male, female)
       puts
       puts create_table(data: general, title: 'Ranking Geral')
       puts
