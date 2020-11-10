@@ -10,7 +10,7 @@ class CitiesController
 
   def self.show(city_name)
     locale_id = City.find_id_by_name(city_name.downcase)
-    return NamesView.city_name_not_found unless locale_id
+    return CitiesView.city_name_not_found unless locale_id
 
     general_ranking = Name.general_ranking_by_locale(locale_id)
     male_ranking = Name.male_ranking_by_locale(locale_id)

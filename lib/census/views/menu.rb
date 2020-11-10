@@ -33,7 +33,7 @@ class MenuView
       case option
       when 1 then StatesController.index
       when 2 then CitiesController.index
-      when 3 then puts 'Frequência'
+      when 3 then NamesController.index
       when 4 then puts 'Saindo...'
       end
 
