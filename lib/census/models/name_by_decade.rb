@@ -8,6 +8,8 @@ class NameByDecade
 
   def self.fetch_names(names_string)
     names_arr = process_input(names_string)
+    return {} if names_arr.empty?
+
     names_param = CGI.escape(names_arr.join('|'))
 
     response = Faraday.get "#{NAMES_URL}/#{names_param}"

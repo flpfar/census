@@ -1,6 +1,7 @@
 require_relative '../models/name'
 require_relative '../models/name_by_decade'
 require_relative '../views/names'
+require_relative '../views/names_by_decades'
 
 class NamesController
   def self.ranking_by_locale(locale_id)
@@ -11,11 +12,11 @@ class NamesController
   end
 
   def self.index
-    NamesView.index
+    NamesByDecadesView.index
   end
 
   def self.search_names(names_string)
     result = NameByDecade.fetch_names(names_string)
-    NamesView.names_by_decades(result)
+    NamesByDecadesView.show(result)
   end
 end
