@@ -1,21 +1,13 @@
+require_relative '../utils/menu_options'
+
 class MenuView
   class << self
-    def show
-      puts 'Seja bem vindo!'
+    def index
       menu
     end
 
-    private
-
-    def menu
-      system 'clear'
-      puts
-      rows = []
-      rows << [1, 'Ranking dos nomes mais comuns em um estado']
-      rows << [2, 'Ranking dos nomes mais comuns em uma cidade']
-      rows << [3, 'Frequência do uso de um nome ao longo dos anos']
-      rows << [4, 'Sair']
-      puts Terminal::Table.new title: 'MENU', rows: rows
+    def invalid_input
+      puts 'Opção inválida!'
       options_select
     end
 
@@ -25,31 +17,30 @@ class MenuView
       menu
     end
 
-    def valid_input?(input)
-      [1, 2, 3, 4].include? input
+    private
+
+    def menu
+      system 'clear'
+      puts
+      puts create_menu
+      options_select
     end
 
-    def handle_selected_option(option)
-      case option
-      when 1 then StatesController.index
-      when 2 then CitiesController.index
-      when 3 then NamesController.index
-      when 4 then puts 'Saindo...'
+    def create_menu
+      rows = []
+
+      MENU_OPTIONS.each do |option_key, option_value|
+        rows << [option_key.to_i, option_value]
       end
 
-      continue unless option == 4
+      Terminal::Table.new title: 'MENU', rows: rows
     end
 
     def options_select
       print 'Selecione uma opção: '
-      input = gets.chomp.to_i
+      input = gets.chomp
 
-      unless valid_input?(input)
-        puts 'Opção inválida!'
-        return options_select
-      end
-
-      handle_selected_option(input)
+      MenuController.show(input)
     end
   end
 end
