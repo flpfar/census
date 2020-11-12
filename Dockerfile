@@ -1,6 +1,6 @@
 FROM ruby:2.7.1
 
-ENV INSTALL_PATH /names-census
+ENV INSTALL_PATH /census
 
 RUN mkdir -p $INSTALL_PATH
 

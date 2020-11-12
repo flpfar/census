@@ -48,6 +48,30 @@ This project provides a console application that fetches information from a braz
 
 This project uses RSpec for testing. In order to run the tests, type `rspec` in the terminal, inside this project folder. For more information about the running tests, use `rspec -f d`
 
+## Getting Started w/ Docker
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Setup
+
+- Navigate to the project folder with `cd census` and run:
+
+```
+docker-compose build
+```
+
+### Running
+
+- Run `docker-compose run --rm app bash`
+- Then, run `./bin/console`
+
+### Run tests
+
+- Run `docker-compose run --rm web rspec`
+
 ## 👤 Author
 
 ### Felipe Rosa (@flpfar)
