@@ -1,6 +1,9 @@
 require_relative './views/menu'
+require_relative './db/db_initializer'
+
 class Census::CLI
-  def welcome
+  def self.welcome
+    DBInitializer.call
     MenuView.index
   end
 end

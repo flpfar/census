@@ -7,4 +7,5 @@ require_relative './census/controllers/cities_controller'
 require_relative './census/controllers/names_controller'
 
 require 'byebug'
+require 'pg'
 require 'terminal-table'
