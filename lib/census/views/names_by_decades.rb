@@ -13,7 +13,7 @@ class NamesByDecadesView
 
       return if names_hash[:names_not_found].empty?
 
-      puts "O(s) nome(s) #{names_hash[:names_not_found].join(', ')} não foram encontrados."
+      puts "Nome(s) não encontrado(s): '#{names_hash[:names_not_found].join(', ')}'."
     end
 
     private
