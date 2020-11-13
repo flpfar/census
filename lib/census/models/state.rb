@@ -1,4 +1,5 @@
 require_relative '../repositories/state'
+require_relative '../services/api/states'
 
 class State
   attr_reader :id, :initials, :name
@@ -28,9 +29,7 @@ class State
     !!(input =~ /^[a-zA-Z]{2}$/)
   end
 
-  private
-
-  def parse_json(states_json)
+  private_class_method def self.parse_json(states_json)
     states_json.map do |state|
       new(id: state[:id], initials: state[:sigla], name: state[:nome])
     end

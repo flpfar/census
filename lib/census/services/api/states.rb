@@ -1,4 +1,4 @@
-class StatesAPI
+class StatesApi
   def self.fetch_states
     response = Faraday.get "#{LOCALES_URL}/estados"
     return [] unless response.status == 200
