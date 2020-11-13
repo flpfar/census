@@ -1,9 +1,13 @@
+require_relative './connection_params'
 require 'singleton'
 
 class DBConnection
   include Singleton
+
   def initialize
-    @connection = PG::Connection.new(host: 'db', user: 'postgres', password: 'password') if @connection.nil?
+    connection_params = ENV['ENVIRONMENT'] == 'test' ? TESTS_DB : DEVELOPMENT_DB
+
+    @connection ||= PG::Connection.new(connection_params)
   end
 
   def exec(statement)

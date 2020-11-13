@@ -1,6 +1,7 @@
 require_relative './census/version'
 require_relative './census/utils/api'
 require_relative './census/cli'
+require_relative './census/db/db_initializer'
 require_relative './census/db/db_connection'
 require_relative './census/controllers/menu_controller'
 require_relative './census/controllers/states_controller'
@@ -12,3 +13,5 @@ require 'faraday'
 require 'json'
 require 'pg'
 require 'terminal-table'
+
+DBInitializer.create_databases

@@ -3,7 +3,7 @@ require_relative './db/db_initializer'
 
 class Census::CLI
   def self.welcome
-    DBInitializer.call
+    DBInitializer.create_tables
     MenuView.index
   end
 end
