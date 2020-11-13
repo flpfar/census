@@ -11,7 +11,6 @@ describe State do
       result = State.all
 
       expect(result).to be_an_instance_of(Array)
-      expect(result.size).to eq(5)
       expect(result.first).to be_an_instance_of(State)
     end
   end

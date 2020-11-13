@@ -1,5 +1,4 @@
-require 'faraday'
-require 'json'
+require_relative '../repositories/state'
 
 class State
   attr_reader :id, :initials, :name
@@ -11,16 +10,29 @@ class State
   end
 
   def self.all
-    response = Faraday.get "#{LOCALES_URL}/estados"
-    return [] unless response.status == 200
+    states_from_db = StateRepository.all
+    return states_from_db unless states_from_db.empty?
 
-    states = JSON.parse(response.body, symbolize_names: true)
-    states.map do |state|
-      new(id: state[:id], initials: state[:sigla], name: state[:nome])
-    end.sort_by(&:initials)
+    states_json = StatesApi.fetch_states
+
+    states = parse_json(states_json)
+    StateRepository.save_batch(states)
+    StateRepository.all
   end
 
   def self.find(initials)
-    all.find { |state| state.initials == initials }
+    StateRepository.find_by_initials(initials)
+  end
+
+  def self.input_valid?(input)
+    !!(input =~ /^[a-zA-Z]{2}$/)
+  end
+
+  private
+
+  def parse_json(states_json)
+    states_json.map do |state|
+      new(id: state[:id], initials: state[:sigla], name: state[:nome])
+    end
   end
 end
