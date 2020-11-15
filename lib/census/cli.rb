@@ -1,5 +1,6 @@
+require_relative './views/menu'
 class Census::CLI
   def welcome
-  	puts 'Hello'
+    MenuView.index
   end
 end
