@@ -8,10 +8,7 @@ require_relative './census/controllers/states_controller'
 require_relative './census/controllers/cities_controller'
 require_relative './census/controllers/names_controller'
 
-require 'byebug'
-require 'faraday'
-require 'json'
-require 'pg'
-require 'terminal-table'
+require 'bundler'
+Bundler.require(:default)
 
 DBInitializer.create_databases
