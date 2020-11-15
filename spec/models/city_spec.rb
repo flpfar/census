@@ -25,7 +25,7 @@ describe City do
 
       result = City.find_id_by_name('cabixi')
 
-      expect(result).to eq(1100031)
+      expect(result).to eq(1100031) # rubocop:disable Style/NumericLiterals
     end
   end
 end
