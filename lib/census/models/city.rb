@@ -1,3 +1,5 @@
+require_relative '../services/api/cities'
+
 class City
   attr_reader :name, :id
 
@@ -7,10 +9,7 @@ class City
   end
 
   def self.all
-    response = Faraday.get "#{LOCALES_URL}/municipios"
-    return [] unless response.status == 200
-
-    cities = JSON.parse(response.body, symbolize_names: true)
+    cities = CitiesApi.new.fetch_data
     cities.map do |city|
       new(id: city[:id], name: city[:nome].downcase)
     end

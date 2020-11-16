@@ -1,7 +1,7 @@
 require_relative './locales'
 
-class StatesApi < LocalesApi
+class CitiesApi < LocalesApi
   def initialize
-    super('estados')
+    super('municipios')
   end
 end

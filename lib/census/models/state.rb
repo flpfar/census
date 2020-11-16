@@ -18,7 +18,7 @@ class State
     states_from_db = StateRepository.all
     return states_from_db unless states_from_db.empty?
 
-    states_json = StatesApi.fetch_states
+    states_json = StatesApi.new.fetch_data
 
     states = parse_json(states_json)
     StateRepository.save_batch(states)
