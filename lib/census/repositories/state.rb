@@ -25,7 +25,7 @@ class StateRepository
     states = con.exec('SELECT * FROM states')
 
     states.map do |state|
-      State.new(id: state['id'], name: state['name'], initials: state['initials'])
+      State.new(id: state['id'].to_i, name: state['name'], initials: state['initials'])
     end
   end
 
