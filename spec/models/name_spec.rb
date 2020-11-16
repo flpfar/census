@@ -23,7 +23,7 @@ describe Name do
 
         allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=123456").and_return(faraday_response)
 
-        result = Name.general_ranking_by_locale(123456)
+        result = Name.general_ranking_by_locale(123456) # rubocop:disable Style/NumericLiterals
 
         expect(result).to be_an_instance_of(Array)
         expect(result.size).to eq(0)
