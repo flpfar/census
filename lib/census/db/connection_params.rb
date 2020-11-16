@@ -1,7 +1,7 @@
 DEFAULT_DB = {
-  host: 'db',
+  host: 'postgres',
   user: 'postgres',
-  password: 'password'
+  password: 'postgres'
 }.freeze
 
 DEVELOPMENT_DB = DEFAULT_DB.merge({ dbname: 'census' })

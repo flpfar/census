@@ -1,0 +1,25 @@
+default:
+  image: ruby:2.7.1
+  before_script:
+    - apt-get update
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs $(nproc) "${FLAGS[@]}"
+    - bin/setup
+
+services:
+  - postgres:12.2-alpine
+
+variables:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+rspec:
+  script:
+    - bundle exec rspec
+
+rubocop:
+  script:
+    - bundle exec rubocop
