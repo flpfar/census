@@ -32,6 +32,8 @@ class StateRepository
   def self.find_by_initials(initials)
     con = DBConnection.instance
     state = con.exec("SELECT * FROM states WHERE initials = '#{initials.upcase}' LIMIT 1").first
-    state ? State.new(id: state['id'].to_i, name: state['name'], initials: state['initials']) : nil
+    return nil unless state
+
+    State.new(id: state['id'].to_i, name: state['name'], initials: state['initials'])
   end
 end
