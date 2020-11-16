@@ -10,5 +10,3 @@ require_relative './census/controllers/names_controller'
 
 require 'bundler'
 Bundler.require(:default)
-
-DBInitializer.create_databases

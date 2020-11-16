@@ -1,3 +1,4 @@
+require 'pg'
 require_relative './schema'
 require_relative './connection_params'
 require_relative './db_connection'
