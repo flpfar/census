@@ -10,6 +10,10 @@ class State
     @name = name
   end
 
+  def save
+    StateRepository.save(self)
+  end
+
   def self.all
     states_from_db = StateRepository.all
     return states_from_db unless states_from_db.empty?

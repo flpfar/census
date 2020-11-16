@@ -12,4 +12,6 @@ CREATE_TABLE_CITIES = 'CREATE TABLE IF NOT EXISTS cities ('\
                         'PRIMARY KEY (id)'\
                       ');'.freeze
 
+REMOVE_NOTICE_IF_TABLE_EXISTS = 'SET client_min_messages = error;'.freeze
+
 CREATE_TABLES = (CREATE_TABLE_STATES + CREATE_TABLE_CITIES).freeze

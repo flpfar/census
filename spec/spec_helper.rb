@@ -1,4 +1,5 @@
 require_relative '../lib/census'
+require_relative './support/db_cleaner'
 
 require 'simplecov'
 SimpleCov.start
@@ -7,6 +8,9 @@ ENV['ENVIRONMENT'] = 'test'
 DBInitializer.create_tables
 
 RSpec.configure do |config|
+  config.before(:each) do
+    DBCleaner.clean!
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
