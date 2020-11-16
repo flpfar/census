@@ -1,5 +1,4 @@
 require_relative '../models/state'
-require_relative '../db/db_connection'
 
 class StateRepository
   def self.save(state)

@@ -8,7 +8,7 @@ CREATE_TABLE_STATES = 'CREATE TABLE IF NOT EXISTS states ('\
 CREATE_TABLE_CITIES = 'CREATE TABLE IF NOT EXISTS cities ('\
                         'id integer NOT NULL,'\
                         'name varchar(40) NOT NULL,'\
-                        'state integer,'\
+                        'state_id integer,'\
                         'PRIMARY KEY (id)'\
                       ');'.freeze
 
