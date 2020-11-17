@@ -1,11 +1,12 @@
 require_relative '../repositories/city'
 require_relative '../services/api/cities'
+require_relative '../formatters/city_name_formatter'
 
 class City
   attr_reader :name, :id, :state_id
 
   def initialize(name:, id:, state_id:)
-    @name = name
+    @name = CityNameFormatter.format(name)
     @id = id
     @state_id = state_id
   end
@@ -26,6 +27,8 @@ class City
 
   def self.find_id_by_name(city_name)
     all if CityRepository.all.empty?
+
+    city_name = CityNameFormatter.format(city_name)
     city = CityRepository.find_by_name(city_name)
 
     return city.id if city
@@ -33,7 +36,7 @@ class City
 
   def self.parse_json(cities)
     cities.map do |city|
-      new(id: city[:id], name: city[:nome].downcase, state_id: city[:microrregiao][:mesorregiao][:UF][:id])
+      new(id: city[:id], name: city[:nome], state_id: city[:microrregiao][:mesorregiao][:UF][:id])
     end
   end
 end

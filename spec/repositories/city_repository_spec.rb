@@ -21,7 +21,7 @@ describe CityRepository do
 
       CityRepository.save_batch(cities)
 
-      expect(CityRepository.all.last.name).to eq('Cidade2')
+      expect(CityRepository.all.last.name).to eq('cidade2')
       expect(CityRepository.all.last.id).to eq(222222)
     end
   end

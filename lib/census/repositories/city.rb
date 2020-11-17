@@ -4,7 +4,7 @@ class CityRepository
   def self.save(city)
     con = DBConnection.instance
     con.exec('INSERT INTO cities (id, name, state_id)'\
-              "VALUES (#{city.id}, '#{city.name.gsub("'", '').downcase}', '#{city.state_id}')"\
+              "VALUES (#{city.id}, '#{city.name}', '#{city.state_id}')"\
               'ON CONFLICT DO NOTHING;')
   end
 
@@ -12,7 +12,7 @@ class CityRepository
     con = DBConnection.instance
 
     query_values = cities.map do |city|
-      "(#{city.id}, '#{city.name.gsub("'", '')}', '#{city.state_id}')"
+      "(#{city.id}, '#{city.name}', '#{city.state_id}')"
     end.join(',')
 
     query = "INSERT INTO cities (id, name, state_id) VALUES #{query_values};"
@@ -30,7 +30,7 @@ class CityRepository
 
   def self.find_by_name(name)
     con = DBConnection.instance
-    city = con.exec("SELECT * FROM cities WHERE name = '#{name.downcase}' LIMIT 1").first
+    city = con.exec("SELECT * FROM cities WHERE name ILIKE '#{name}' LIMIT 1").first
     return nil unless city
 
     City.new(id: city['id'].to_i, name: city['name'], state_id: city['state_id'].to_i)
