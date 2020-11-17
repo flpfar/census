@@ -24,7 +24,7 @@ class CityRepository
     cities = con.exec('SELECT * FROM cities;')
 
     cities.map do |city|
-      City.new(id: city['id'].to_i, name: city['name'], state_id: city['state_id'].to_i)
+      City.new(id: city['id'], name: city['name'], state_id: city['state_id'])
     end
   end
 
@@ -33,6 +33,6 @@ class CityRepository
     city = con.exec("SELECT * FROM cities WHERE name ILIKE '#{name}' LIMIT 1").first
     return nil unless city
 
-    City.new(id: city['id'].to_i, name: city['name'], state_id: city['state_id'].to_i)
+    City.new(id: city['id'], name: city['name'], state_id: city['state_id'])
   end
 end

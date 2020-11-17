@@ -25,8 +25,8 @@ describe State do
 
         expect(result).to be_an_instance_of(State)
         expect(result.id).to eq(12)
-        expect(result.initials).to eq('AC')
-        expect(result.name).to eq('Acre')
+        expect(result.initials).to eq(state.initials)
+        expect(result.name).to eq(state.name)
       end
     end
 

@@ -24,15 +24,15 @@ class StateRepository
     states = con.exec('SELECT * FROM states')
 
     states.map do |state|
-      State.new(id: state['id'].to_i, name: state['name'], initials: state['initials'])
+      State.new(id: state['id'], name: state['name'], initials: state['initials'])
     end
   end
 
   def self.find_by_initials(initials)
     con = DBConnection.instance
-    state = con.exec("SELECT * FROM states WHERE initials = '#{initials.upcase}' LIMIT 1").first
+    state = con.exec("SELECT * FROM states WHERE initials ILIKE '#{initials}' LIMIT 1").first
     return nil unless state
 
-    State.new(id: state['id'].to_i, name: state['name'], initials: state['initials'])
+    State.new(id: state['id'], name: state['name'], initials: state['initials'])
   end
 end

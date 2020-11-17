@@ -1,12 +1,13 @@
 require_relative '../repositories/state'
 require_relative '../services/api/states'
+require_relative '../formatters/state_initials_formatter'
 
 class State
   attr_reader :id, :initials, :name
 
   def initialize(id:, initials:, name:)
-    @id = id
-    @initials = initials
+    @id = id.to_i
+    @initials = StateInitialsFormatter.format(initials)
     @name = name
   end
 
@@ -26,6 +27,7 @@ class State
   end
 
   def self.find(initials)
+    initials = StateInitialsFormatter.format(initials)
     StateRepository.find_by_initials(initials)
   end
 

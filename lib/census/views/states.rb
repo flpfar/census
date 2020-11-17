@@ -19,7 +19,7 @@ class StatesView
     def create_table(states)
       rows = []
       states.each do |state|
-        rows << [state.initials, state.name]
+        rows << [state.initials.upcase, state.name]
       end
       Terminal::Table.new headings: %w[Sigla Estado], rows: rows
     end

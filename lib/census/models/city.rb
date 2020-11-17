@@ -7,8 +7,8 @@ class City
 
   def initialize(name:, id:, state_id:)
     @name = CityNameFormatter.format(name)
-    @id = id
-    @state_id = state_id
+    @id = id.to_i
+    @state_id = state_id.to_i
   end
 
   def save
