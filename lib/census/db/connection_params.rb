@@ -1,8 +1,6 @@
-DEFAULT_DB = {
-  host: 'postgres',
-  user: 'postgres',
-  password: 'postgres'
-}.freeze
+require 'yaml'
 
-DEVELOPMENT_DB = DEFAULT_DB.merge({ dbname: 'census' })
-TESTS_DB = DEFAULT_DB.merge({ dbname: 'census_test' })
+DB_FILE_SETTINGS = YAML.load_file('./config/database.yml').freeze
+DEFAULT_DB = DB_FILE_SETTINGS['default'].freeze
+DEVELOPMENT_DB = DB_FILE_SETTINGS['development'].freeze
+TESTS_DB = DB_FILE_SETTINGS['test'].freeze

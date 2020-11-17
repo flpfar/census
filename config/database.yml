@@ -1,0 +1,12 @@
+default: &default
+  host: postgres
+  user: postgres
+  password: postgres
+
+development:
+  <<: *default
+  dbname: census
+
+test:
+  <<: *default
+  dbname: census_test
