@@ -4,9 +4,28 @@ services:
     image: postgres:12.2-alpine
     environment:
       POSTGRES_PASSWORD: postgres
+  redis:
+    image: 'redis:6-alpine'
+    command: redis-server
+    ports:
+      - '6380:6379'
+  sidekiq:
+    build: .
+    command: bash -c "bin/setup && bundle exec sidekiq -c 2 -r ./config/sidekiq.rb"
+    volumes:
+      - '.:/census'
+    environment:
+      - REDIS_URL_SIDEKIQ=redis://redis:6379/1
+    depends_on:
+      - 'postgres'
+      - 'redis'
   app:
     build: .
+    command: bash -c "bin/setup && bash"
     volumes:
       - .:/census
+    environment:
+      - REDIS_URL_SIDEKIQ=redis://redis:6379/1
     depends_on:
       - postgres
+      - redis
