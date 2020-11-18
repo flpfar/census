@@ -1,4 +1,22 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env ruby
+require_relative '../lib/census/db/db_initializer'
+require 'fileutils'
+include FileUtils
 
-bundle install
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+chdir APP_ROOT do
+  puts '== Instalando dependências =='
+  system! 'gem install bundler --conservative'
+  system('bundle check') || system!('bundle install')
+
+  puts "\n== Criando banco de dados =="
+  DBInitializer.create_databases
+
+  puts "\n== Tudo pronto! =="
+end

@@ -33,7 +33,8 @@ This project provides a console application that fetches information from a braz
 
 - Clone this repository
 - Navigate to the project folder with `cd census`
-- Run `bin/setup` to set up and install dependencies
+- *Database*: Edit the file `lib/census/db/connection_params.rb` with local credentials to connect to Postgres DB
+- Run `bin/setup` to set up installing dependencies and creating the databases
 
 ### Running
 
@@ -61,16 +62,17 @@ This project uses RSpec for testing. In order to run the tests, type `rspec` in 
 
 ```
 docker-compose build
+docker-compose run --rm app bash
+bin/setup
 ```
 
 ### Running
 
-- Run `docker-compose run --rm app bash`
-- Then, run `./bin/console`
+- Run `./bin/console`
 
 ### Run tests
 
-- Run `docker-compose run --rm web rspec`
+- Run `docker-compose run --rm app rspec`
 
 ## 👤 Author
 

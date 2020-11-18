@@ -1,12 +1,12 @@
 version: '3'
 services:
-  db:
-    image: postgres
+  postgres:
+    image: postgres:12.2-alpine
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
   app:
     build: .
     volumes:
       - .:/census
     depends_on:
-      - db
+      - postgres

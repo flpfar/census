@@ -1,26 +1,43 @@
-require 'faraday'
-require 'json'
+require_relative '../repositories/state'
+require_relative '../services/api/states'
+require_relative '../formatters/state_initials_formatter'
 
 class State
   attr_reader :id, :initials, :name
 
   def initialize(id:, initials:, name:)
-    @id = id
-    @initials = initials
+    @id = id.to_i
+    @initials = StateInitialsFormatter.format(initials)
     @name = name
   end
 
-  def self.all
-    response = Faraday.get "#{LOCALES_URL}/estados"
-    return [] unless response.status == 200
+  def save
+    StateRepository.save(self)
+  end
 
-    states = JSON.parse(response.body, symbolize_names: true)
-    states.map do |state|
-      new(id: state[:id], initials: state[:sigla], name: state[:nome])
-    end.sort_by(&:initials)
+  def self.all
+    states_from_db = StateRepository.all
+    return states_from_db unless states_from_db.empty?
+
+    states_json = StatesApi.new.fetch_data
+
+    states = parse_json(states_json)
+    StateRepository.save_batch(states)
+    StateRepository.all
   end
 
   def self.find(initials)
-    all.find { |state| state.initials == initials }
+    initials = StateInitialsFormatter.format(initials)
+    StateRepository.find_by_initials(initials)
+  end
+
+  def self.input_valid?(input)
+    !!(input =~ /^[a-zA-Z]{2}$/)
+  end
+
+  private_class_method def self.parse_json(states_json)
+    states_json.map do |state|
+      new(id: state[:id], initials: state[:sigla], name: state[:nome])
+    end
   end
 end
