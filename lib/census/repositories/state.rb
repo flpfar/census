@@ -1,5 +1,3 @@
-require_relative '../models/state'
-
 class StateRepository
   def self.save(state)
     con = DBConnection.instance

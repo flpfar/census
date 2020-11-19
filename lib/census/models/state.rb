@@ -1,7 +1,3 @@
-require_relative '../repositories/state'
-require_relative '../services/api/states'
-require_relative '../formatters/state_initials_formatter'
-
 class State
   attr_reader :id, :initials, :name
 
