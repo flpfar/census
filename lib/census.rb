@@ -4,31 +4,33 @@ Bundler.require(:default)
 class CensusLoader
   def initialize
     @files = []
-    @files.push(*(Dir.glob('config/initializers/*.rb').map { |file| "../#{file}" }))
-    @files.push(*(Dir.glob('lib/census/**/*.rb').map { |file| file.gsub('lib/', './') }))
-    require_all_files
+  end
+
+  def call
+    load_initializers_files
+    load_project_files
+    require_loaded_files
   end
 
   private
 
   attr_accessor :files
 
-  def require_all_files # rubocop:disable Metrics/MethodLength
-    i = 0
-    while i < files.length
-      begin
-        require_relative files[i]
-      rescue NameError
-        i += 1
-      else
-        while i.positive?
-          files.push(files.shift)
-          i -= 1
-        end
-        files.shift
-      end
+  def load_initializers_files
+    Dir.glob('config/initializers/*.rb').each { |file| files << "../#{file}" }
+  end
+
+  def load_project_files
+    Dir.glob('lib/census/**/*.rb').each { |file| files << file.gsub('lib/', './') }
+  end
+
+  def require_loaded_files
+    files.each do |file|
+      require_relative file
+    rescue NameError
+      files << file
     end
   end
 end
 
-CensusLoader.new
+CensusLoader.new.call
