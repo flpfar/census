@@ -1,5 +1,5 @@
+require_relative '../config/initializers/api_params'
 require_relative './census/version'
-require_relative './census/utils/api'
 require_relative './census/cli'
 require_relative './census/db/db_initializer'
 require_relative './census/db/db_connection'
