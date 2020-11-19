@@ -1,7 +1,7 @@
 default: &default
-  # host: postgres
-  user: felipe
-  # password: postgres
+  host: postgres
+  user: postgres
+  password: postgres
 
 development:
   <<: *default
