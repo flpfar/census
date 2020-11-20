@@ -1,6 +1,3 @@
-require 'bundler'
-Bundler.require(:default)
-
 class CensusLoader
   def initialize
     @files = []
