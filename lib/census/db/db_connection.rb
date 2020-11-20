@@ -1,4 +1,3 @@
-require_relative './connection_params'
 require 'singleton'
 
 class DBConnection

@@ -1,11 +1,10 @@
-require_relative '../lib/census'
+ENV['ENVIRONMENT'] = 'test'
+
+require_relative '../config/boot'
 require_relative './support/db_cleaner'
 
 require 'simplecov'
 SimpleCov.start
-
-ENV['ENVIRONMENT'] = 'test'
-DBInitializer.create_tables
 
 RSpec.configure do |config|
   config.before(:each) do

@@ -1,6 +1,3 @@
-require_relative '../models/menu'
-require_relative '../views/menu'
-
 class MenuController
   def self.index
     MenuView.index
