@@ -1,8 +1,3 @@
-require_relative '../models/city'
-require_relative '../models/name'
-require_relative '../views/cities'
-require_relative '../views/names'
-
 class CitiesController
   def self.index
     CitiesView.index

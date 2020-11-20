@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/census'
+require_relative '../config/boot'
 
 Census::CLI.welcome

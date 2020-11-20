@@ -1,5 +1,3 @@
-require_relative '../models/city'
-
 class CityRepository
   def self.save(city)
     con = DBConnection.instance

@@ -1,8 +1,3 @@
-require 'pg'
-require_relative './schema'
-require_relative './connection_params'
-require_relative './db_connection'
-
 class DBInitializer
   def self.create_databases
     con = PG::Connection.new(DEFAULT_DB)
@@ -11,6 +6,7 @@ class DBInitializer
     create_db(con, 'census_test')
 
     con.close
+    create_tables
   end
 
   def self.create_tables
@@ -28,5 +24,5 @@ class DBInitializer
     con.exec("CREATE DATABASE #{db_name};")
   end
 
-  private_class_method :db_exists?, :create_db
+  private_class_method :db_exists?, :create_db, :create_tables
 end

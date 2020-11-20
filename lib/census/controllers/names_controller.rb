@@ -1,8 +1,3 @@
-require_relative '../models/name'
-require_relative '../models/name_by_decade'
-require_relative '../views/names'
-require_relative '../views/names_by_decades'
-
 class NamesController
   def self.ranking_by_locale(locale_id)
     general_ranking = Name.general_ranking_by_locale(locale_id)

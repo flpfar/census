@@ -1,5 +1,3 @@
-require_relative '../utils/menu_options'
-
 class MenuView
   class << self
     def index

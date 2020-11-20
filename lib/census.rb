@@ -1,13 +1,33 @@
-require 'bundler'
-Bundler.require(:default)
+class CensusLoader
+  def initialize
+    @files = []
+  end
 
-require_relative './census/version'
-require_relative './census/utils/api'
-require_relative './census/cli'
-require_relative '../config/sidekiq'
-require_relative './census/db/db_initializer'
-require_relative './census/db/db_connection'
-require_relative './census/controllers/menu_controller'
-require_relative './census/controllers/states_controller'
-require_relative './census/controllers/cities_controller'
-require_relative './census/controllers/names_controller'
+  def call
+    load_initializers_files
+    load_project_files
+    require_loaded_files
+  end
+
+  private
+
+  attr_accessor :files
+
+  def load_initializers_files
+    Dir.glob('config/initializers/*.rb').each { |file| files << "../#{file}" }
+  end
+
+  def load_project_files
+    Dir.glob('lib/census/**/*.rb').each { |file| files << file.gsub('lib/', './') }
+  end
+
+  def require_loaded_files
+    files.each do |file|
+      require_relative file
+    rescue NameError
+      files << file
+    end
+  end
+end
+
+CensusLoader.new.call

@@ -1,5 +1,3 @@
-require_relative '../models/name'
-
 class NamesView
   class << self
     def rankings_by_locale(general, male, female)
