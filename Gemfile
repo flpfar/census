@@ -7,5 +7,6 @@ gem 'faraday'
 gem 'pg'
 gem 'rspec'
 gem 'rubocop', require: false
+gem 'sidekiq'
 gem 'simplecov', require: false
 gem 'terminal-table'
