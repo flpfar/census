@@ -1,7 +1,7 @@
 class Menu
   def initialize
     @options = {
-      1 => { text: 'Ranking dos nomes mais comuns em um estado', action: -> { StatesController.index } },
+      1 => { text: 'Ranking dos nomes mais comuns em um estado', action: -> { StatesController.new.ranking } },
       2 => { text: 'Ranking dos nomes mais comuns em uma cidade', action: -> { CitiesController.index } },
       3 => { text: 'Frequência do uso de um nome ao longo dos anos', action: -> { NamesController.index } },
       0 => { text: 'Sair', action: -> { puts 'Saindo...' } }
