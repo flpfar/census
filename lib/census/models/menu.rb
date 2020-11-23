@@ -1,5 +1,0 @@
-class Menu
-  def self.input_valid?(input)
-    !!MENU_OPTIONS[input.to_i]
-  end
-end
