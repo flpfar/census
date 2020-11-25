@@ -1,5 +1,3 @@
-require_relative '../controllers/cities_controller'
-
 class CitiesView
   class << self
     def index

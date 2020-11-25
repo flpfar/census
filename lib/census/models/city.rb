@@ -1,7 +1,3 @@
-require_relative '../repositories/city'
-require_relative '../services/api/cities'
-require_relative '../formatters/city_name_formatter'
-
 class City
   attr_reader :name, :id, :state_id
 
