@@ -32,7 +32,6 @@ describe RankingRepository do
       expect(result).to be_an_instance_of(Ranking)
       expect(result.ranked_names.size).to eq(2)
       expect(result.ranked_names.first).to be_an_instance_of(RankedName)
-      expect(result.ranked_names.first.name).to eq('Lorem')
     end
 
     it 'filters by gender if parameter is passed' do
