@@ -10,6 +10,6 @@ class StatesController
     state = State.find(initials)
     return StatesView.not_found unless state
 
-    NamesController.ranking_by_locale(state.id)
+    RankingsController.ranking_by_locale(state.id)
   end
 end
