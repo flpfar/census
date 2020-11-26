@@ -6,7 +6,7 @@ describe State do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_states.json'))
       faraday_response = double('states', status: 200, body: json_content)
 
-      allow(Faraday).to receive(:get).with("#{LOCALES_URL}/estados").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.locales_url}/estados").and_return(faraday_response)
 
       result = State.all
 
@@ -35,7 +35,7 @@ describe State do
         json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_states.json'))
         faraday_response = double('states', status: 200, body: json_content)
 
-        allow(Faraday).to receive(:get).with("#{LOCALES_URL}/estados").and_return(faraday_response)
+        allow(Faraday).to receive(:get).with("#{Census.config.locales_url}/estados").and_return(faraday_response)
 
         result = State.find('AA')
 
