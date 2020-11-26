@@ -1,44 +1,19 @@
-class MenuView
-  class << self
-    def index
-      menu
+module Views
+  class Menu
+    def initialize(menu_options)
+      @menu_options = menu_options
     end
 
-    def invalid_input
-      puts 'Opção inválida!'
-      options_select
-    end
-
-    def continue
-      print "\n>> Pressione ENTER para continuar... "
-      gets.chomp
-      menu
+    def show_options
+      create_menu
     end
 
     private
 
-    def menu
-      system 'clear'
-      puts
-      puts create_menu
-      options_select
-    end
+    attr_reader :menu_options
 
     def create_menu
-      rows = []
-
-      MENU_OPTIONS.each do |option_key, option_value|
-        rows << [option_key.to_i, option_value]
-      end
-
-      Terminal::Table.new title: 'MENU', rows: rows
-    end
-
-    def options_select
-      print 'Selecione uma opção: '
-      input = gets.chomp
-
-      MenuController.show(input)
+      Terminal::Table.new title: 'MENU', rows: menu_options.to_a
     end
   end
 end
