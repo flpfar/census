@@ -6,6 +6,10 @@ class Menu
     '0' => { text: 'Sair', action: -> { puts 'Saindo...' } }
   }.freeze
 
+  def initialize
+    @option = nil
+  end
+
   def call
     loop do
       show_options
@@ -19,6 +23,8 @@ class Menu
 
   private
 
+  attr_accessor :option
+
   def show_options
     puts
     puts Views::Menu.show_options(options_texts)
@@ -28,18 +34,18 @@ class Menu
   def receive_option_input
     loop do
       input = gets.chomp
-      break @option = input if input_valid?(input)
+      break self.option = input if input_valid?(input)
 
       print 'Opção inválida. Tente novamente: '
     end
   end
 
   def execute_option
-    OPTIONS[@option][:action].call
+    OPTIONS[option][:action].call
   end
 
   def exit_option_selected?
-    @option == '0'
+    option == '0'
   end
 
   def press_enter_to_continue
