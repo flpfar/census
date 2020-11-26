@@ -1,21 +1,19 @@
 module Views
   class Menu
-    class << self
-      def show_options(menu_options)
-        create_menu(menu_options)
-      end
+    def initialize(menu_options)
+      @menu_options = menu_options
+    end
 
-      private
+    def show_options
+      create_menu
+    end
 
-      def create_menu(menu_options)
-        rows = []
+    private
 
-        menu_options.each do |option_key, option_value|
-          rows << [option_key.to_i, option_value]
-        end
+    attr_reader :menu_options
 
-        Terminal::Table.new title: 'MENU', rows: rows
-      end
+    def create_menu
+      Terminal::Table.new title: 'MENU', rows: menu_options.to_a
     end
   end
 end

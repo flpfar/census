@@ -27,7 +27,7 @@ class Menu
 
   def show_options
     puts
-    puts Views::Menu.show_options(options_texts)
+    puts Views::Menu.new(menu_options).show_options
     print 'Selecione uma opção: '
   end
 
@@ -53,7 +53,7 @@ class Menu
     gets.chomp
   end
 
-  def options_texts
+  def menu_options
     OPTIONS.transform_values { |v| v[:text] }
   end
 
