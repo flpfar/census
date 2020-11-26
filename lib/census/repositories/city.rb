@@ -26,11 +26,25 @@ class CityRepository
     end
   end
 
+  def self.count
+    con = DBConnection.instance
+    con.exec('SELECT count(*) FROM cities;').first['count'].to_i
+  end
+
   def self.find_by_name(name)
     con = DBConnection.instance
     city = con.exec("SELECT * FROM cities WHERE name ILIKE '#{name}' LIMIT 1").first
     return nil unless city
 
     City.new(id: city['id'], name: city['name'], state_id: city['state_id'])
+  end
+
+  def self.find_by_state(id)
+    con = DBConnection.instance
+    cities = con.exec("SELECT * FROM cities WHERE state_id = #{id};")
+
+    cities.map do |city|
+      City.new(id: city['id'], name: city['name'], state_id: city['state_id'])
+    end
   end
 end
