@@ -6,7 +6,7 @@ describe NameByDecade do
       it 'returns a hash containing an array of NameByDecade and an empty array' do
         json_response = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_names_by_decades.json'))
         faraday_response = double('names_by_decades', status: 200, body: json_response)
-        allow(Faraday).to receive(:get).with("#{NAMES_URL}/#{CGI.escape('felipe|gabriel')}")
+        allow(Faraday).to receive(:get).with("#{Census.config.names_url}/#{CGI.escape('felipe|gabriel')}")
                                        .and_return(faraday_response)
         input_string = 'felipe, gabriel'
 
@@ -25,7 +25,8 @@ describe NameByDecade do
       it 'returns a hash containing an array of NameByDecade with names found and an array with names not found' do
         json_response = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_names_by_decades.json'))
         faraday_response = double('names_by_decades', status: 200, body: json_response)
-        allow(Faraday).to receive(:get).with("#{NAMES_URL}/#{CGI.escape('felipe|gabriel|invalid|notaname')}")
+        allow(Faraday).to receive(:get).with("#{Census.config.names_url}/"\
+                                             "#{CGI.escape('felipe|gabriel|invalid|notaname')}")
                                        .and_return(faraday_response)
         input_string = 'felipe, gabriel, invalid, notaname'
 
@@ -42,7 +43,7 @@ describe NameByDecade do
       it 'returns a hash containing an array of with one NameByDecade element, and an empty array' do
         json_response = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_name_by_decades.json'))
         faraday_response = double('names_by_decades', status: 200, body: json_response)
-        allow(Faraday).to receive(:get).with("#{NAMES_URL}/#{CGI.escape('felipe')}")
+        allow(Faraday).to receive(:get).with("#{Census.config.names_url}/#{CGI.escape('felipe')}")
                                        .and_return(faraday_response)
         input_string = 'felipe'
 

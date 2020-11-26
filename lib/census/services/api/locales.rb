@@ -6,7 +6,7 @@ class LocalesApi
   end
 
   def fetch_data
-    response = Faraday.get "#{LOCALES_URL}/#{type}"
+    response = Faraday.get "#{Census.config.locales_url}/#{type}"
     return [] unless response.status == 200
 
     JSON.parse(response.body, symbolize_names: true)

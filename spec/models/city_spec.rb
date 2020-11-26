@@ -6,7 +6,7 @@ describe City do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_cities.json'))
       faraday_response = double('cities', status: 200, body: json_content)
 
-      allow(Faraday).to receive(:get).with("#{LOCALES_URL}/municipios").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.locales_url}/municipios").and_return(faraday_response)
 
       result = City.all
 
@@ -21,7 +21,7 @@ describe City do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_cities.json'))
       faraday_response = double('cities', status: 200, body: json_content)
 
-      allow(Faraday).to receive(:get).with("#{LOCALES_URL}/municipios").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.locales_url}/municipios").and_return(faraday_response)
 
       result = City.find_id_by_name('cabixi')
 
