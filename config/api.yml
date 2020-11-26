@@ -1,0 +1,2 @@
+locales_url: https://servicodados.ibge.gov.br/api/v1/localidades
+names_url: https://servicodados.ibge.gov.br/api/v2/censos/nomes

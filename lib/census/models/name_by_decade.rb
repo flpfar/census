@@ -12,7 +12,7 @@ class NameByDecade
 
     names_param = CGI.escape(names_arr.join('|'))
 
-    response = Faraday.get "#{NAMES_URL}/#{names_param}"
+    response = Faraday.get "#{Census.config.names_url}/#{names_param}"
     return {} unless response.status == 200
 
     names_hash = JSON.parse(response.body, symbolize_names: true)

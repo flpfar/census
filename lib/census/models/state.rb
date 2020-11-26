@@ -23,6 +23,8 @@ class State
   end
 
   def self.find(initials)
+    return nil unless input_valid?(initials)
+
     initials = StateInitialsFormatter.format(initials)
     StateRepository.find_by_initials(initials)
   end
@@ -31,9 +33,11 @@ class State
     !!(input =~ /^[a-zA-Z]{2}$/)
   end
 
-  private_class_method def self.parse_json(states_json)
+  def self.parse_json(states_json)
     states_json.map do |state|
       new(id: state[:id], initials: state[:sigla], name: state[:nome])
     end
   end
+
+  private_class_method :input_valid?, :parse_json
 end

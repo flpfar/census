@@ -3,7 +3,8 @@ describe Ranking do
     it 'returns a Ranking with RankedNames' do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
       faraday_response = double('ranking', status: 200, body: json_content)
-      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=35")
+                                     .and_return(faraday_response)
 
       result = Ranking.from_locale(35)
 
@@ -15,7 +16,8 @@ describe Ranking do
 
     it 'returns new when request fails' do
       faraday_response = double('ranking', status: 500)
-      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=35")
+                                     .and_return(faraday_response)
 
       result = Ranking.from_locale(35)
 

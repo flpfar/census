@@ -1,9 +1,9 @@
 class Menu
   OPTIONS = {
-    '1' => { text: 'Ranking dos nomes mais comuns em um estado', action: -> { StatesController.index } },
-    '2' => { text: 'Ranking dos nomes mais comuns em uma cidade', action: -> { CitiesController.index } },
-    '3' => { text: 'Frequência do uso de um nome ao longo dos anos', action: -> { NamesController.index } },
-    '0' => { text: 'Sair', action: -> { puts 'Saindo...' } }
+    '1' => { text: 'Ranking dos nomes mais comuns em um estado', class_name: StatesController, method_name: :ranking },
+    '2' => { text: 'Ranking dos nomes mais comuns em uma cidade', class_name: CitiesController, method_name: :index },
+    '3' => { text: 'Frequência do uso de um nome ao longo dos anos', class_name: NamesController, method_name: :index },
+    '0' => { text: 'Sair' }
   }.freeze
 
   def initialize
@@ -14,9 +14,9 @@ class Menu
     loop do
       show_options
       receive_option_input
-      execute_option
       break if exit_option_selected?
 
+      execute_option
       press_enter_to_continue
     end
   end
@@ -41,7 +41,8 @@ class Menu
   end
 
   def execute_option
-    OPTIONS[option][:action].call
+    class_name, method_name = OPTIONS[@option].values_at(:class_name, :method_name)
+    class_name.public_send(method_name)
   end
 
   def exit_option_selected?

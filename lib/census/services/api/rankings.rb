@@ -5,7 +5,7 @@ class RankingsApi
   end
 
   def fetch_data
-    response = Faraday.get "#{NAMES_URL}/ranking#{process_params}" do |req|
+    response = Faraday.get "#{Census.config.names_url}/ranking#{process_params}" do |req|
       req.options.timeout = 5
     end
     return [] unless response.status == 200
