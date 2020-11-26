@@ -1,12 +1,10 @@
 class Menu
-  def initialize
-    @options = {
-      1 => { text: 'Ranking dos nomes mais comuns em um estado', action: -> { StatesController.index } },
-      2 => { text: 'Ranking dos nomes mais comuns em uma cidade', action: -> { CitiesController.index } },
-      3 => { text: 'Frequência do uso de um nome ao longo dos anos', action: -> { NamesController.index } },
-      0 => { text: 'Sair', action: -> { puts 'Saindo...' } }
-    }.freeze
-  end
+  OPTIONS = {
+    '1' => { text: 'Ranking dos nomes mais comuns em um estado', action: -> { StatesController.index } },
+    '2' => { text: 'Ranking dos nomes mais comuns em uma cidade', action: -> { CitiesController.index } },
+    '3' => { text: 'Frequência do uso de um nome ao longo dos anos', action: -> { NamesController.index } },
+    '0' => { text: 'Sair', action: -> { puts 'Saindo...' } }
+  }.freeze
 
   def call
     loop do
@@ -29,7 +27,7 @@ class Menu
 
   def receive_option_input
     loop do
-      input = gets.chomp.to_i
+      input = gets.chomp
       break @option = input if input_valid?(input)
 
       print 'Opção inválida. Tente novamente: '
@@ -37,11 +35,11 @@ class Menu
   end
 
   def execute_option
-    @options[@option][:action].call
+    OPTIONS[@option][:action].call
   end
 
   def exit_option_selected?
-    @option.zero?
+    @option == '0'
   end
 
   def press_enter_to_continue
@@ -50,10 +48,10 @@ class Menu
   end
 
   def options_texts
-    @options.transform_values { |v| v[:text] }
+    OPTIONS.transform_values { |v| v[:text] }
   end
 
   def input_valid?(input)
-    !!@options[input]
+    OPTIONS.keys.include?(input)
   end
 end
