@@ -7,7 +7,8 @@ describe Name do
         json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
         faraday_response = double('ranking', status: 200, body: json_content)
 
-        allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35").and_return(faraday_response)
+        allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=35")
+                                       .and_return(faraday_response)
 
         result = Name.general_ranking_by_locale(35)
 
@@ -21,7 +22,8 @@ describe Name do
       it 'should return an empty array' do
         faraday_response = double('ranking', status: 200, body: [])
 
-        allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=123456").and_return(faraday_response)
+        allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=123456")
+                                       .and_return(faraday_response)
 
         result = Name.general_ranking_by_locale(123456) # rubocop:disable Style/NumericLiterals
 
@@ -36,7 +38,8 @@ describe Name do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
       faraday_response = double('ranking', status: 200, body: json_content)
 
-      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35&sexo=M").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=35&sexo=M")
+                                     .and_return(faraday_response)
 
       result = Name.male_ranking_by_locale(35)
 
@@ -51,7 +54,8 @@ describe Name do
       json_content = File.read(File.join(File.dirname(__FILE__), '../support/apis/get_ranking.json'))
       faraday_response = double('ranking', status: 200, body: json_content)
 
-      allow(Faraday).to receive(:get).with("#{NAMES_URL}/ranking?localidade=35&sexo=F").and_return(faraday_response)
+      allow(Faraday).to receive(:get).with("#{Census.config.names_url}/ranking?localidade=35&sexo=F")
+                                     .and_return(faraday_response)
 
       result = Name.female_ranking_by_locale(35)
 
