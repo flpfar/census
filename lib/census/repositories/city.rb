@@ -1,13 +1,13 @@
 class CityRepository
   def self.save(city)
-    con = DBConnection.instance
+    con = DBConnection.new
     con.exec('INSERT INTO cities (id, name, state_id)'\
               "VALUES (#{city.id}, '#{city.name}', '#{city.state_id}')"\
               'ON CONFLICT DO NOTHING;')
   end
 
   def self.save_batch(cities)
-    con = DBConnection.instance
+    con = DBConnection.new
 
     query_values = cities.map do |city|
       "(#{city.id}, '#{city.name}', '#{city.state_id}')"
@@ -18,7 +18,7 @@ class CityRepository
   end
 
   def self.all
-    con = DBConnection.instance
+    con = DBConnection.new
     cities = con.exec('SELECT * FROM cities;')
 
     cities.map do |city|
@@ -27,12 +27,12 @@ class CityRepository
   end
 
   def self.count
-    con = DBConnection.instance
+    con = DBConnection.new
     con.exec('SELECT count(*) FROM cities;').first['count'].to_i
   end
 
   def self.find_by_name(name)
-    con = DBConnection.instance
+    con = DBConnection.new
     city = con.exec("SELECT * FROM cities WHERE name ILIKE '#{name}' LIMIT 1").first
     return nil unless city
 
@@ -40,7 +40,7 @@ class CityRepository
   end
 
   def self.find_by_state(id)
-    con = DBConnection.instance
+    con = DBConnection.new
     cities = con.exec("SELECT * FROM cities WHERE state_id = #{id};")
 
     cities.map do |city|

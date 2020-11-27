@@ -3,7 +3,7 @@ class StoreRankingWorker
 
   def perform(locale_id, gender = nil)
     ranking = fetch_ranking(locale_id, gender)
-    save_to_db(ranking)
+    save_to_db(ranking) unless ranking.nil?
   end
 
   private

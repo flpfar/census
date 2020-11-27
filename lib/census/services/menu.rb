@@ -3,6 +3,8 @@ class Menu
     '1' => { text: 'Ranking dos nomes mais comuns em um estado', class_name: StatesController, method_name: :ranking },
     '2' => { text: 'Ranking dos nomes mais comuns em uma cidade', class_name: CitiesController, method_name: :index },
     '3' => { text: 'Frequência do uso de um nome ao longo dos anos', class_name: NamesController, method_name: :index },
+    '4' => { text: 'Armazenar rankings de todas as cidades de um estado', class_name: StatesController,
+             method_name: :store_cities_rankings },
     '0' => { text: 'Sair' }
   }.freeze
 

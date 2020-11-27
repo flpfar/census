@@ -6,6 +6,17 @@ class StatesController
     RankingsController.ranking_by_locale(state.id)
   end
 
+  def self.store_cities_rankings
+    state = select_state
+    return puts Views::States.not_found unless state
+
+    state.cities.each do |city|
+      StoreRankingWorker.perform_async(city.id)
+    end
+
+    puts Views::States.storing_data
+  end
+
   def self.select_state
     states = State.all.sort_by(&:initials)
     print Views::States.show_states(states)
