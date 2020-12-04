@@ -7,27 +7,13 @@ class NameByDecade
   end
 
   def self.fetch_names(names_string)
-    names_arr = process_input(names_string)
+    names_arr = NamesInputProcessor.new(names_string).call
     return {} if names_arr.empty?
 
-    names_param = CGI.escape(names_arr.join('|'))
-
-    response = Faraday.get "#{Census.config.names_url}/#{names_param}"
-    return {} unless response.status == 200
-
-    names_hash = JSON.parse(response.body, symbolize_names: true)
-
+    names_hash = NamesApi.new(names_arr).fetch_data
     result = process_response(names_hash)
-
     names_not_found = (names_arr - result[:names_found]) || []
-
     { names: result[:names], names_not_found: names_not_found }
-  end
-
-  def self.process_input(names_string)
-    names = names_string.downcase.split(/[^a-z]*\s*,\s*[^a-z]*/)
-    names.map { |n| n.sub(/[\s[^a-z]].*/, '') }
-    # TODO: Add parameterize
   end
 
   def self.process_response(names)
@@ -52,5 +38,5 @@ class NameByDecade
     decades
   end
 
-  private_class_method :process_response, :decades_hash, :process_input
+  private_class_method :process_response, :decades_hash
 end
