@@ -12,17 +12,12 @@ class City
   end
 
   def self.all
-    cities_from_db = CityRepository.all
-    return cities_from_db unless cities_from_db.empty?
-
-    cities_json = CitiesApi.new.fetch_data
-    cities = parse_json(cities_json)
-    CityRepository.save_batch(cities)
+    load_cities
     CityRepository.all
   end
 
   def self.find_id_by_name(city_name)
-    all if CityRepository.all.empty?
+    load_cities
 
     city_name = CityNameFormatter.format(city_name)
     city = CityRepository.find_by_name(city_name)
@@ -30,9 +25,25 @@ class City
     return city.id if city
   end
 
+  def self.find_by_state(state_id)
+    load_cities
+
+    CityRepository.find_by_state(state_id)
+  end
+
   def self.parse_json(cities)
     cities.map do |city|
       new(id: city[:id], name: city[:nome], state_id: city[:microrregiao][:mesorregiao][:UF][:id])
     end
   end
+
+  def self.load_cities
+    return unless CityRepository.count.zero?
+
+    cities_json = CitiesApi.new.fetch_data
+    cities = parse_json(cities_json)
+    CityRepository.save_batch(cities)
+  end
+
+  private_class_method :load_cities, :parse_json
 end

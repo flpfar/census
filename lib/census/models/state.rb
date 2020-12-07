@@ -9,6 +9,11 @@ class State
 
   def save
     StateRepository.save(self)
+    self
+  end
+
+  def cities
+    City.find_by_state(id)
   end
 
   def self.all
