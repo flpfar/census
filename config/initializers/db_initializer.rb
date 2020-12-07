@@ -10,7 +10,7 @@ class DBInitializer
   end
 
   def self.create_tables
-    con = DBConnection.instance
+    con = DBConnection.new
     con.exec(REMOVE_NOTICE_IF_TABLE_EXISTS + CREATE_TABLES)
   end
 

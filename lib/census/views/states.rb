@@ -9,6 +9,10 @@ module Views
         'Estado não encontrado.'
       end
 
+      def storing_data
+        'Os rankings das cidades estão sendo salvos em background.'
+      end
+
       private
 
       def select_state

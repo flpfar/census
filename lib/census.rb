@@ -4,7 +4,7 @@ class CensusLoader
   end
 
   def call
-    load_initializers_files
+    load_config_files
     load_project_files
     require_loaded_files
   end
@@ -13,8 +13,8 @@ class CensusLoader
 
   attr_accessor :files
 
-  def load_initializers_files
-    Dir.glob('config/initializers/*.rb').each { |file| files << "../#{file}" }
+  def load_config_files
+    Dir.glob('config/**/*.rb').each { |file| files << "../#{file}" }
   end
 
   def load_project_files

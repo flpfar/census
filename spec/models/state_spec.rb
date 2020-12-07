@@ -43,4 +43,19 @@ describe State do
       end
     end
   end
+
+  describe '#cities' do
+    it 'should return an array of cities from that state' do
+      state = State.new(name: 'Acre', initials: 'AC', id: 12).save
+      City.new(id: 11, name: 'Cidade1', state_id: 12).save
+      City.new(id: 22, name: 'Cidade2', state_id: 20).save
+      City.new(id: 33, name: 'Cidade3', state_id: 12).save
+
+      result = state.cities
+
+      expect(result).to be_an_instance_of(Array)
+      expect(result.first).to be_an_instance_of(City)
+      expect(result.size).to eq(2)
+    end
+  end
 end

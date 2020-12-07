@@ -1,15 +1,16 @@
-require 'singleton'
-
 class DBConnection
-  include Singleton
-
   def initialize
-    connection_params = ENV['ENVIRONMENT'] == 'test' ? TESTS_DB : DEVELOPMENT_DB
-
-    @connection ||= PG::Connection.new(connection_params)
+    @connection_params = ENV['ENVIRONMENT'] == 'test' ? TESTS_DB : DEVELOPMENT_DB
   end
 
   def exec(statement)
-    @connection.exec(statement)
+    con = PG::Connection.new(connection_params)
+    result = con.exec(statement)
+    con.close
+    result
   end
+
+  private
+
+  attr_reader :connection_params
 end
