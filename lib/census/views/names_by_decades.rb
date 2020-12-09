@@ -10,9 +10,7 @@ module Views
       def show(names_result)
         return 'Nome(s) não encontrado(s)' if names_result.nil? || names_result.names.empty?
 
-        return create_table(names_result) if names_result.names_not_found.empty?
-
-        "Nome(s) não encontrado(s): '#{names_result.names_not_found.join(', ')}'."
+        create_table(names_result).to_s + names_not_found(names_result)
       end
 
       private
@@ -29,6 +27,12 @@ module Views
         decades.each { |k, v| rows << v.unshift(k) }
 
         Terminal::Table.new headings: headings, rows: rows
+      end
+
+      def names_not_found(names_result)
+        return '' if names_result.names_not_found.empty?
+
+        "\nNome(s) não encontrado(s): '#{names_result.names_not_found.join(', ')}'."
       end
     end
   end
