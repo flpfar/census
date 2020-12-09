@@ -15,18 +15,8 @@ module Views
 
       private
 
-      def create_table(names_result) # rubocop:disable Metrics/AbcSize
-        headings = ['']
-        decades = Hash.new { |h, k| h[k] = [] }
-        names_result.names.each do |item|
-          headings << item.name
-          item.decades.each { |k, v| decades[k] << v }
-        end
-
-        rows = []
-        decades.each { |k, v| rows << v.unshift(k) }
-
-        Terminal::Table.new headings: headings, rows: rows
+      def create_table(names_result)
+        NameByDecadeTableFormatter.new(names_result.names).call
       end
 
       def names_not_found(names_result)
