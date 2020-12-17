@@ -8,7 +8,7 @@ class NameByDecade
 
   def self.fetch_names(names_input)
     names_arr = NamesInputProcessor.new(names_input).call
-    return nil if names_arr.empty?
+    return if names_arr.empty?
 
     names_hash = NamesApi.new(names_arr).fetch_data
     parsed_names = NameByDecadeParser.new(names_hash).call

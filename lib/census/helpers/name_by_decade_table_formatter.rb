@@ -1,6 +1,6 @@
 class NameByDecadeTableFormatter
   def initialize(names)
-    @names = names
+    @names_by_decades = names
     @headings = ['']
     @rows = []
     @decades = Hash.new { |h, k| h[k] = [] }
@@ -16,15 +16,15 @@ class NameByDecadeTableFormatter
 
   private
 
-  attr_accessor :names, :headings, :decades, :rows
+  attr_accessor :names_by_decades, :headings, :decades, :rows
 
   def create_headings
-    names.each { |item| headings << item.name }
+    headings.concat(names_by_decades.map(&:name))
   end
 
   def process_decades
-    names.each do |name|
-      name.decades.each { |k, v| decades[k] << v }
+    names_by_decades.each do |name_by_decade|
+      name_by_decade.decades.each { |k, v| decades[k] << v }
     end
   end
 

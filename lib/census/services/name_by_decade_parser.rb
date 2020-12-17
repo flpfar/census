@@ -1,8 +1,6 @@
 class NameByDecadeParser
   def initialize(names_hash)
     @names_hash = names_hash
-    @parsed_names = []
-    @names_found = []
   end
 
   def call
@@ -11,8 +9,10 @@ class NameByDecadeParser
 
   private
 
+  attr_reader :names_hash
+
   def parse_names_hash
-    @names_hash.map do |item|
+    names_hash.map do |item|
       name = item[:nome].downcase
       decades = parse_decades_hash(item[:res])
       NameByDecade.new(name: name, decades: decades)

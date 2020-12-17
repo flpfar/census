@@ -10,7 +10,7 @@ module Views
       def show(names_result)
         return 'Nome(s) não encontrado(s)' if names_result.nil? || names_result.names.empty?
 
-        create_table(names_result).to_s + names_not_found(names_result)
+        "#{create_table(names_result)}#{names_not_found(names_result)}"
       end
 
       private
