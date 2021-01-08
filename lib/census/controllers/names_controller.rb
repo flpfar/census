@@ -1,10 +1,10 @@
 class NamesController
   def self.index
-    NamesByDecadesView.index
+    Views::NamesByDecades.index
   end
 
   def self.search_names(names_string)
-    result = NameByDecade.fetch_names(names_string)
-    NamesByDecadesView.show(result)
+    name_by_decade_result = NameByDecade.fetch_names(names_string)
+    puts Views::NamesByDecades.show(name_by_decade_result)
   end
 end
